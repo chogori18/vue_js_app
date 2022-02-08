@@ -1,3 +1,8 @@
+//数値を通貨書式「#,###,###」に変換するフィルター
+Vue.filter('number_format',function(val) {
+    return val.toLocaleString();
+});
+//商品一覧コンポーネント
 var app = new Vue({
     el: '#app',
     data: {
@@ -19,8 +24,5 @@ var app = new Vue({
             { name: 'Azrael<br>スマホケース', price: 1580, image: 'images/06.jpg', delv: 0, isSale: false }
         ]
     },
-    created() {
-        console.log(this.products)
-    }
 });
 Vue.config.devtools = true;
