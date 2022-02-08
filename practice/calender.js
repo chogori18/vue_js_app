@@ -4,6 +4,7 @@ var app = new Vue({
       arrival_date: null
     },
     created: function() {
+      console.log('hi')
       //初期値を設定する
       this.arrival_date = this.formatDate(new Date());
     },
