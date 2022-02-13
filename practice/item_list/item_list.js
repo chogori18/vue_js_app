@@ -1,13 +1,11 @@
 //数値を通貨書式「#,###,###」に変換するフィルター
-Vue.filter('number_format',function(val) {
+Vue.filter('number_format', function (val) {
     return val.toLocaleString();
 });
 //商品一覧コンポーネント
 var app = new Vue({
     el: '#app',
     data: {
-        //表示中の商品数
-        count: 0,
         //「セール対象」のチェック状態（true：チェック有り、false：チェック無し）
         showSaleItem: false,
         //「送料無料」のチェック状態（true：チェック有り、false：チェック無し）
@@ -26,22 +24,22 @@ var app = new Vue({
     },
     watch: {
         //「セール対象」チェックボックスの状態を監視するウォッチャ
-        showSaleItem: function(newVal, oldVal) {
+        showSaleItem: function (newVal, oldVal) {
             //productsの配列を書き換える
-            console.log('showDelvFreeウォッチャが呼び出されました。');
+            console.log('showDelvItemウォッチャが呼び出されました。');
         },
         //「送料無料」チェックボックスの配列の状態を監視するウォッチャ
-        showDelvFree: function(newVal, oldVal) {
-        //productsの配列を書き換える
-        console.log('showDelvFreeウォッチャが呼び出されました。');
+        showDelvFree: function (newVal, oldVal) {
+            //productsの配列を書き換える
+            console.log('showDelvFreeウォッチャが呼び出されました。');
         }
     },
     computed: {
         //絞り込み後の商品リストを返す算出プロパティ
-        filteredList: function() {
+        filteredList: function () {
             //絞り込み後の商品リストを格納する新しい配列
             var newList = [];
-            for (var i=0; i<this.products.length; i++) {
+            for (var i = 0; i < this.products.length; i++) {
                 //表示対象かどうかを判定するフラグ
                 var isShow = true;
                 //i番目の商品が表示対象かどうかを判定する
@@ -57,10 +55,20 @@ var app = new Vue({
                 if (isShow) {
                     newList.push(this.products[i]);
                 }
-
-                //絞り込み後の商品リストを返す
-                return newList;
             }
+            //新しい配列を並び変える
+            if (this.sortOrder == 1) {
+                //元の順番にpushしているので並び替え済み
+            }
+            else if (this.sortOrder == 2) {
+                //価格が安い順に並び替える
+                newList.sort(function (a, b) {
+                    return a.price - b.price;
+                });
+            }
+
+            //絞り込み後の商品リストを返す
+            return newList;
         }
     }
 });
