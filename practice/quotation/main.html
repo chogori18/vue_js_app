@@ -70,14 +70,38 @@
         </div>
         <!-- 小計：基本料金 -->
         <div class="form-group row">
-          <label class="col-md-3 col-form-label pt-0" for="wedding_date">挙式日
-            <span class="badge badge-danger">必須</span>
-          </label>
+          <label class="col-md-3 col-form-label pt-0" for="wedding_date">基本料金（税込）</label>
           <div class="col-md-9">
-            <input class="form-control" type="date" id="wedding_date" placeholder="日付をお選びください。">
-            <small class="form-text">結婚式のお日にちを選択してください。</small>
+            <div class="input-group">
+              <input type="text" class="form-control text-right" id="sum_base" value="32,400" readonly>
+              <div class="input-group-append">
+                <label class="input-group-text">円</label>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- オプションメニュー -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label pt-0">オプションメニュー
+            <span class="badge badge-info">必須</span>
+          </label>
+          <div class="col-md-9">
+            <div class ="form-check mb-3"></div>
+            <input class="form-check-input" type="checkbox" id="opt1">
+            <label class="form-check-label" for="opt1">BGM手配 +5,400円</label>
+            <small class="form-text">当社で曲を手配させていただく場合は、1曲あたり5,400円（税込）がかかります。</small>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="opt2">
+            <label class="form-check-label" for="opt2">撮影 +5,400円</label>
+            <small class="form-text">当社に撮影を依頼する場合の料金です。</small>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="opt3">
+            <label class="form-check-label" for="opt3">DVD盤面印刷 +5,400円</label>
+            <small class="form-text">当社でDVDの盤面をデザインさせて頂く場合は、5,400円（税込）がかかります。</small>
+        </div>
+        <div 
       </form>
     </div>
   </div>
