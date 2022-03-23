@@ -4,7 +4,9 @@ var app = document.querySelector('#app');
 var taxRate = 0.1;
 
 /**
+ * 
  * イベントハンドラの割り当て
+ * 
  */
 
 // ページの読み込み完了イベント
@@ -19,7 +21,9 @@ app.querySelector('#opt2').addEventListener('change', onInputChanged, false);
 app.querySelector('#opt4').addEventListener('input', onInputChanged, false);
 
 /**
+ * 
  * イベントハンドラ
+ * 
  */
 
 // ページの読み込みが完了したとき呼び出されるイベントハンドラ
@@ -48,7 +52,9 @@ function onInputChanged(event) {
 }
 
 /**
+ * 
  * 関数
+ * 
  */
 
 // 日付をYYYY-MM-DDの書式で返すメソッド
@@ -76,14 +82,79 @@ function number_format(val) {
     return val.toLocaleString();
 }
 
+// 日付の差を求める関数
+function getDateDiff(dateString1, dateString2) {
+    // 日付を表す文字列から日付オブジェクトを生成
+    var date1 = new Date(dateString1);
+    var date2 = new Date(dateString2);
+    // 2つの日付の差分（ミリ秒）を計算
+    var msDiff = date1.getTime() - date2.getTime();
+    // 求めた差分（ミリ秒）を日付に変換
+    // 差分/（1000ミリ秒 * 60秒 * 60分 * 24時間）
+    return Math.ceil(msDiff / (1000 * 60 * 60 * 24));
+}
+
 // 再計算した基本料金（税込）を返す関数
 function taxedBasePrice(){
-    // 基本料金を返す
+    // 割増料金
+    var addPrice = 0;
+    // フォームコントロールを取得（ＤＶＤ仕上がり予定日）
+    var delivery_date = app.querySelector('#delivery_date');
+    // 納期までの残り日数を計算
+    var dateDiff = getDateDiff(delivery_date.value,(new Date()).toLocaleString());
+    // 割増料金を求める
+    if (21 <= dateDiff && dateDiff < 30) {
+        // 納期が1か月未満の場合
+        addPrice = 5000;
+    }
+    else if (14 <= dateDiff && dateDiff < 21) {
+        // 納期が3週間未満の場合
+        addPrice = 10000;
+    }
+    else if (7 <= dateDiff && dateDiff < 14) {
+        // 納期が3週間未満の場合
+        addPrice = 15000;
+    }
+    else if (3 <= dateDiff && dateDiff < 7) {
+        // 納期が3週間未満の場合
+        addPrice = 20000;
+    }
+    else if (dateDiff == 3) {
+        // 納期が3週間未満の場合
+        addPrice = 40000;
+    }
+    else if (dateDiff == 2) {
+        // 納期が3週間未満の場合
+        addPrice = 45000;
+    }
+    else if(dateDiff == 1) {
+        // 納期が3週間未満の場合
+        addPrice = 50000;
+    }
+    // 基本料金（税金）を返す
+    return incTax(30000 + addPrice);
 }
 
 // 再計算したオプション料金（税込）を返す関数
 function taxedOptPrice() {
-    // オプション料金（税込）を返す
+    // オプション料金
+    var optPrice = 0;
+    // フォームコントロールを取得
+    var opt1 = app.querySelector('#opt1'); // BGN手配
+    var opt2 = app.querySelector('#opt2'); // 撮影
+    var opt3 = app.querySelector('#opt3'); // DVD盤面印刷
+    var opt4 = app.querySelector('#opt4'); // 写真スキャニング
+    // BGM手配
+    if (opt1.checked) { optPrice += 5000; }
+    // 撮影
+    if (opt2.checked) { optPrice += 5000; }
+    // DVD盤面印刷
+    if (opt3.checked) { optPrice += 5000; }
+    // 写真スキャニング
+    if (opt4.value == '') { opt4 =0; }
+    optPrice += opt4.value * 500;
+    // オプション料金（税金）を返す
+    return incTax(optPrice);
 }
 
 // 金額の表示を更新する関数
