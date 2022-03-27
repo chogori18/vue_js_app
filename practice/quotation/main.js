@@ -3,10 +3,17 @@ var app = document.querySelector('#app');
 // 消費税率
 var taxRate = 0.1;
 
+var app = new Vue({
+    el: '#app',
+    data: {
+        // ここにデータを定義する
+    }
+});
+
 /**
- * 
+ *
  * イベントハンドラの割り当て
- * 
+ *
  */
 
 // ページの読み込み完了イベント
@@ -21,9 +28,9 @@ app.querySelector('#opt2').addEventListener('change', onInputChanged, false);
 app.querySelector('#opt4').addEventListener('input', onInputChanged, false);
 
 /**
- * 
+ *
  * イベントハンドラ
- * 
+ *
  */
 
 // ページの読み込みが完了したとき呼び出されるイベントハンドラ
@@ -52,9 +59,9 @@ function onInputChanged(event) {
 }
 
 /**
- * 
+ *
  * 関数
- * 
+ *
  */
 
 // 日付をYYYY-MM-DDの書式で返すメソッド
@@ -62,7 +69,7 @@ function formatDate(dt) {
     var y = dt.getFullYear();
     var m = ('00' + (dt.getMonth() + 1)).slice(-2);
     var d = ('00' + dt.getDate()).slice(-2);
-    return (y + '-' + m + '-' +d);
+    return (y + '-' + m + '-' + d);
 }
 
 // 明日の日付をYYYY-MM-DDの書式で返す関数
@@ -73,7 +80,7 @@ function tommorow() {
 }
 
 // 税抜き金額を税込み金額に変換する関数
-function incTax(untaxed){
+function incTax(untaxed) {
     return Math.floor(untaxed * (1 + taxRate));
 }
 
@@ -95,13 +102,13 @@ function getDateDiff(dateString1, dateString2) {
 }
 
 // 再計算した基本料金（税込）を返す関数
-function taxedBasePrice(){
+function taxedBasePrice() {
     // 割増料金
     var addPrice = 0;
     // フォームコントロールを取得（ＤＶＤ仕上がり予定日）
     var delivery_date = app.querySelector('#delivery_date');
     // 納期までの残り日数を計算
-    var dateDiff = getDateDiff(delivery_date.value,(new Date()).toLocaleString());
+    var dateDiff = getDateDiff(delivery_date.value, (new Date()).toLocaleString());
     // 割増料金を求める
     if (21 <= dateDiff && dateDiff < 30) {
         // 納期が1か月未満の場合
@@ -127,7 +134,7 @@ function taxedBasePrice(){
         // 納期が3週間未満の場合
         addPrice = 45000;
     }
-    else if(dateDiff == 1) {
+    else if (dateDiff == 1) {
         // 納期が3週間未満の場合
         addPrice = 50000;
     }
@@ -151,7 +158,7 @@ function taxedOptPrice() {
     // DVD盤面印刷
     if (opt3.checked) { optPrice += 5000; }
     // 写真スキャニング
-    if (opt4.value == '') { opt4 =0; }
+    if (opt4.value == '') { opt4 = 0; }
     optPrice += opt4.value * 500;
     // オプション料金（税金）を返す
     return incTax(optPrice);
