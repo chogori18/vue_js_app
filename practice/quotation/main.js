@@ -40,6 +40,7 @@ var app = new Vue({
         // オプション「写真スキャニング」
         opt4_num: 0,            // 利用枚数
         opt4_price: 500,        // 料金（税抜き）
+        tommorow: null          // 翌日の日付
     },
     methods: {
         // 税抜き金額を税込み金額に変換するメソッド
@@ -56,6 +57,13 @@ var app = new Vue({
             // 求めた差分（ミリ秒）を日付に変換
             // 差分/（1000ミリ秒 * 60秒 * 60分 * 24時間）
             return Math.ceil(msDiff / (1000 * 60 * 60 * 24));
+        },
+        // 日付をYYYY-MM-DDの書式で返すメソッド
+        formatDate: function(dt) {
+            var y = dt.getFullYear();
+            var m = ('00' + (dt.getMonth()+1)).slice(-2);
+            var d = ('00' + dt.getDate()).slice(-2);
+            return (y + '-' + m + '-' + d);
         }
     },
     computed: {
@@ -134,6 +142,20 @@ var app = new Vue({
             // 基本料金（税込）とオプション料金（税込）の合計を返す
             return (this.taxedBasePrice + this.taxedOptPrice);
         }
+    },
+    created: function() {
+        //今日の日付を取得
+        var dt = new Date();
+        // 挙式日に2ヶ月後の日付を設定
+        dt.setMonth(dt.getMonth() + 2);
+        this.wedding_date = this.formatDate(dt);
+        // DVD仕上がり予定日に、挙式日の1週間後の日付を設定
+        dt.setDate(dt.getDate() - 7);
+        this.delivery_date = this.formatDate(dt);
+        // DVD仕上がり予定日に翌日以降しか入力できないようにする
+        dt = new Date();
+        dt.setDate(dt.getDate() + 1);
+        this.tommorow = this.formatDate(dt);
     }
 });
 
