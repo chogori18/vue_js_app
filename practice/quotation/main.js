@@ -1,7 +1,7 @@
-// コンポーネントのルートノード
-var app = document.querySelector('#app');
-// 消費税率
-var taxRate = 0.1;
+// // コンポーネントのルートノード
+// var app = document.querySelector('#app');
+// // 消費税率
+// var taxRate = 0.1;
 // 数値を通貨書式「#,###,###」(String型)に変換するフィルター
 Vue.filter('number_format', function(val) {
     return val.toLocaleString();
@@ -18,12 +18,12 @@ var app = new Vue({
         basePrice: 30000,
         // 割り増し料金
         addPrice1: 5000, // 納期が1か月未満の場合
-        addPrice1: 10000, // 納期が3週間未満の場合
-        addPrice1: 15000, // 納期が2週間未満の場合
-        addPrice1: 20000, // 納期が1週間未満の場合
-        addPrice1: 40000, // 納期が3日後の場合
-        addPrice1: 45000, // 納期が2日後未満の場合
-        addPrice1: 50000, // 納期が1日後未満の場合
+        addPrice2: 10000, // 納期が3週間未満の場合
+        addPrice3: 15000, // 納期が2週間未満の場合
+        addPrice4: 20000, // 納期が1週間未満の場合
+        addPrice5: 40000, // 納期が3日後の場合
+        addPrice6: 45000, // 納期が2日後未満の場合
+        addPrice7: 50000, // 納期が1日後未満の場合
         // オプション料金（税抜き）
         optPrice: 0,
         // 合計金額（税抜き）
@@ -44,7 +44,7 @@ var app = new Vue({
         // オプション「写真スキャニング」
         opt4_num: 0,            // 利用枚数
         opt4_price: 500,        // 料金（税抜き）
-        tommorow: null          // 翌日の日付
+        tomorrow: null          // 翌日の日付
     },
     methods: {
         // 税抜き金額を税込み金額に変換するメソッド
@@ -88,7 +88,7 @@ var app = new Vue({
             return this.incTax(this.opt4_price);
         },
         // 基本料金（税込）を返す算出プロパティ
-        taxedBasePrice: function () {
+        taxedBasedPrice: function () {
             // 割増料金
             var addPrice = 0;
             // 納期までの残り日数を計算
@@ -145,9 +145,9 @@ var app = new Vue({
         taxedTotalPrice: function () {
             // 基本料金（税込）とオプション料金（税込）の合計を返す
             return (this.taxedBasePrice + this.taxedOptPrice);
-        }
+        },
         // 明日の日付をYYYY-MM-DDの書式で返す算出プロパティ
-        tommorow: function() {
+        tomorrow: function() {
             var dt = new Date();
             dt.setDate(dt.getDate() + 1);
             return this.formatDate(dt);
@@ -165,7 +165,7 @@ var app = new Vue({
         // DVD仕上がり予定日に翌日以降しか入力できないようにする
         dt = new Date();
         dt.setDate(dt.getDate() + 1);
-        this.tommorow = this.formatDate(dt);
+        this.tomorrow = this.formatDate(dt);
     }
 });
 
@@ -175,16 +175,16 @@ var app = new Vue({
  *
  */
 
-// ページの読み込み完了イベント
-window.addEventListener('load', onPageLoad, false);
-// 入力内容変更イベント（DVD仕上がり予定日）
-app.querySelector('#delivery_date').addEventListener('change', onInputChanged, false);
-// 入力内容変更イベント（BGM手配）
-app.querySelector('#opt1').addEventListener('change', onInputChanged, false);
-// 入力内容変更イベント（撮影）
-app.querySelector('#opt2').addEventListener('change', onInputChanged, false);
-// 入力内容変更イベント（DVD盤面印刷）
-app.querySelector('#opt4').addEventListener('input', onInputChanged, false);
+// // ページの読み込み完了イベント
+// window.addEventListener('load', onPageLoad, false);
+// // 入力内容変更イベント（DVD仕上がり予定日）
+// app.querySelector('#delivery_date').addEventListener('change', onInputChanged, false);
+// // 入力内容変更イベント（BGM手配）
+// app.querySelector('#opt1').addEventListener('change', onInputChanged, false);
+// // 入力内容変更イベント（撮影）
+// app.querySelector('#opt2').addEventListener('change', onInputChanged, false);
+// // 入力内容変更イベント（DVD盤面印刷）
+// app.querySelector('#opt4').addEventListener('input', onInputChanged, false);
 
 /**
  *
@@ -206,7 +206,7 @@ function onPageLoad(event) {
     dt.setDate(dt.getDate() - 7);
     delivery_date.value = formatDate(dt);
     // DVD仕上がり予定日に翌日以降しか入力できないようにする
-    delivery_date.setAttribute('min', tommorow());
+    delivery_date.setAttribute('min', tomorrow());
     // フォームの表示を更新する
     updateForm();
 }
@@ -232,7 +232,7 @@ function formatDate(dt) {
 }
 
 // 明日の日付をYYYY-MM-DDの書式で返す関数
-function tommorow() {
+function tomorrow() {
     var dt = new Date();
     dt.setDate(dt.getDate() + 1);
     return formatDate(dt);

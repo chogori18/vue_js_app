@@ -63,7 +63,7 @@
           <span class="badge badge-danger">必須</span>
         </label>
         <div class="col-md-9">
-          <input class="form-control" type="date" id="delivery_date" v-bind:min="tommorow" placeholder="日付をお選びください。" v-model="delivery_date">
+          <input class="form-control" type="date" id="delivery_date" v-bind:min="tomorrow" placeholder="日付をお選びください。" v-model="delivery_date">
           <small class="form-text">挙式日の1週間前までにDVDが必要な場合が多いため、仕上がり予定日を挙式日の1週間前に設定しております。</small>
         </div>
       </div>
@@ -140,10 +140,9 @@
           </div>
         </div>
       </div>
-      </form>
     </div>
   </div>
-  <script src="https://jp.vuejs.org/js/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
   <script src="main.js"></script>
 </body>
 
