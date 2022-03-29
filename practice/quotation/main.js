@@ -20,7 +20,26 @@ var app = new Vue({
         addPrice1: 40000, // 納期が3日後の場合
         addPrice1: 45000, // 納期が2日後未満の場合
         addPrice1: 50000, // 納期が1日後未満の場合
-
+        // オプション料金（税抜き）
+        optPrice: 0,
+        // 合計金額（税抜き）
+        totalPrice: 0,
+        // 挙式日（日付）
+        wedding_date: '',
+        // DVD仕上がり予定日（日付）
+        delivery_date: '',
+        // オプション「BGM手配」
+        opt1_use: false,        // true：利用する、false：利用しない
+        opt1_price: 5000,       // 料金（税抜き）
+        // オプション「撮影」
+        opt2_use: false,        // true：利用する、false：利用しない
+        opt2_price: 5000,       // 料金（税抜き）
+        // オプション「DVD盤面印刷」
+        opt3_use: false,        // true：利用する、false：利用しない
+        opt3_price: 5000,       // 料金（税抜き）
+        // オプション「写真スキャニング」
+        opt4_num: 0,            // 利用枚数
+        opt4_price: 500,        // 料金（税抜き）
     }
 });
 
