@@ -2,6 +2,10 @@
 var app = document.querySelector('#app');
 // 消費税率
 var taxRate = 0.1;
+// 数値を通貨書式「#,###,###」(String型)に変換するフィルター
+Vue.filter('number_format', function(val) {
+    return val.toLocaleString();
+})
 
 var app = new Vue({
     el: '#app',
