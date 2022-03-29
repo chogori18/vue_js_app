@@ -40,6 +40,43 @@ var app = new Vue({
         // オプション「写真スキャニング」
         opt4_num: 0,            // 利用枚数
         opt4_price: 500,        // 料金（税抜き）
+    },
+    methods: {
+        // 税抜き金額を税込み金額に変換するメソッド
+        incTax: function(untaxed) {
+            return Math.floor(untaxed * (i + this.taxRate));
+        }
+    },
+    computed: {
+        // オプション「BGM手配」の税込み金額に変換するメソッド
+        taxedOpt1: function() {
+            return this.incTax(this.opt1_price);
+        },
+        // オプション「撮影」の税込み金額に変換するメソッド
+        taxedOpt2: function() {
+            return this.incTax(this.opt2_price);
+        },
+        // オプション「DVD盤面印刷」の税込み金額に変換するメソッド
+        taxedOpt3: function() {
+            return this.incTax(this.opt3_price);
+        },
+        // オプション「写真スキャニング」の税込み金額に変換するメソッド
+        taxedOpt4: function() {
+            return this.incTax(this.opt4_price);
+        },
+        // 基本料金（税込）を返す算出プロパティ
+        taxedBasePrice: function() {
+            // TODO：基本料金（税込）を計算して返す
+        },
+        // オプション料金（税込）を返す算出プロパティ
+        taxedOptPrice: function() {
+            // TODO：オプション料金（税込）を計算して返す
+        },
+        // 合計金額（税込）を返す算出プロパティ
+        taxedTotalPrice: function() {
+            // 基本料金（税込）とオプション料金（税込）の合計を返す
+            return (this.taxedBasePrice + this.taxedOptPrice);
+        }
     }
 });
 
