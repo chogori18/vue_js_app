@@ -1,4 +1,4 @@
-var products = {
+var product = {
     template: `
     <div class="item">
         <figure class="image">
