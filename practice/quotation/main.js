@@ -11,7 +11,7 @@ var app = new Vue({
     el: '#app',
     data: {
         // 消費税率
-        taxRate: 0.08,
+        taxRate: 0.1,
         // 制作したいムービー
         movieType: '余興ムービー',
         // 基本料金（税抜き）
