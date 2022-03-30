@@ -144,7 +144,7 @@ var app = new Vue({
         // 合計金額（税込）を返す算出プロパティ
         taxedTotalPrice: function () {
             // 基本料金（税込）とオプション料金（税込）の合計を返す
-            return (this.taxedBasePrice + this.taxedOptPrice);
+            return (this.taxedBasedPrice + this.taxedOptPrice);
         },
         // 明日の日付をYYYY-MM-DDの書式で返す算出プロパティ
         tomorrow: function() {
